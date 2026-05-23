@@ -1,0 +1,671 @@
+{
+  "personal_info": {
+    "name": "Abrash Shoukat",
+    "reg_no": "BAI251087",
+    "cgpa": "2.52"
+  },
+  "courses": [
+    {
+      "course_identifier": "lo7ymw5rvVb3lrMv6nGD",
+      "course_name": "Database Systems Lab",
+      "teacher": "Asma Ali",
+      "course_code": "AI2311",
+      "credit_hours": "1.0",
+      "attendance": "73.0",
+      "grade_categories": [
+        {
+          "name": "Assignments",
+          "weightage": "20.0",
+          "total_obtained": "87.00",
+          "assessments": [
+            {
+              "name": "Assignments 2",
+              "max_mark": "10.0",
+              "obtained_mark": "8.50",
+              "class_average": "7.30",
+              "percentage": "85.00"
+            },
+            {
+              "name": "Assignments 4",
+              "max_mark": "10.0",
+              "obtained_mark": "8.50",
+              "class_average": "4.78",
+              "percentage": "85.00"
+            },
+            {
+              "name": "Assignments 1",
+              "max_mark": "10.0",
+              "obtained_mark": "9.00",
+              "class_average": "6.11",
+              "percentage": "90.00"
+            },
+            {
+              "name": "Assignments 3",
+              "max_mark": "10.0",
+              "obtained_mark": "9.00",
+              "class_average": "6.53",
+              "percentage": "90.00"
+            },
+            {
+              "name": "Assignments 5",
+              "max_mark": "10.0",
+              "obtained_mark": "8.50",
+              "class_average": "7.09",
+              "percentage": "85.00"
+            }
+          ]
+        },
+        {
+          "name": "Mid",
+          "weightage": "20.0",
+          "total_obtained": "35.00",
+          "assessments": [
+            {
+              "name": "Mid Term 2",
+              "max_mark": "10.0",
+              "obtained_mark": "5.00",
+              "class_average": "4.44",
+              "percentage": "50.00"
+            },
+            {
+              "name": "Mid Term 1",
+              "max_mark": "10.0",
+              "obtained_mark": "2.00",
+              "class_average": "3.83",
+              "percentage": "20.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "course_identifier": "XplOG86rnVBL8rRvAxm7",
+      "course_name": "Data Structures Lab",
+      "teacher": "Adan Atiq",
+      "course_code": "AI2141",
+      "credit_hours": "1.0",
+      "attendance": "91.0",
+      "grade_categories": [
+        {
+          "name": "Quiz",
+          "weightage": "20.0",
+          "total_obtained": "75.00",
+          "assessments": [
+            {
+              "name": "Quiz 2",
+              "max_mark": "10.0",
+              "obtained_mark": "8.00",
+              "class_average": "7.48",
+              "percentage": "80.00"
+            },
+            {
+              "name": "Quiz 1",
+              "max_mark": "10.0",
+              "obtained_mark": "10.00",
+              "class_average": "7.03",
+              "percentage": "100.00"
+            },
+            {
+              "name": "Quiz 3",
+              "max_mark": "10.0",
+              "obtained_mark": "5.00",
+              "class_average": "4.55",
+              "percentage": "50.00"
+            },
+            {
+              "name": "Quiz 4",
+              "max_mark": "10.0",
+              "obtained_mark": "7.00",
+              "class_average": "7.10",
+              "percentage": "70.00"
+            }
+          ]
+        },
+        {
+          "name": "Mid",
+          "weightage": "20.0",
+          "total_obtained": "35.00",
+          "assessments": [
+            {
+              "name": "Mid Term 2",
+              "max_mark": "10.0",
+              "obtained_mark": "2.00",
+              "class_average": "5.10",
+              "percentage": "20.00"
+            },
+            {
+              "name": "Mid Term 1",
+              "max_mark": "10.0",
+              "obtained_mark": "5.00",
+              "class_average": "4.56",
+              "percentage": "50.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "course_identifier": "oGzBl2wJ7WyjZJdWXK0D",
+      "course_name": "Probability and Statistics",
+      "teacher": "Sana Riaz",
+      "course_code": "MTAI2063",
+      "credit_hours": "3.0",
+      "attendance": "79.0",
+      "grade_categories": [
+        {
+          "name": "Assignments",
+          "weightage": "15.0",
+          "total_obtained": "87.50",
+          "assessments": [
+            {
+              "name": "Assignments 1",
+              "max_mark": "10.0",
+              "obtained_mark": "8.50",
+              "class_average": "8.02",
+              "percentage": "85.00"
+            },
+            {
+              "name": "Assignments 2",
+              "max_mark": "10.0",
+              "obtained_mark": "9.00",
+              "class_average": "8.45",
+              "percentage": "90.00"
+            }
+          ]
+        },
+        {
+          "name": "Mid",
+          "weightage": "20.0",
+          "total_obtained": "83.75",
+          "assessments": [
+            {
+              "name": "Mid Term 1",
+              "max_mark": "10.0",
+              "obtained_mark": "8.50",
+              "class_average": "7.45",
+              "percentage": "85.00"
+            },
+            {
+              "name": "Mid Term 2",
+              "max_mark": "10.0",
+              "obtained_mark": "8.25",
+              "class_average": "7.11",
+              "percentage": "82.50"
+            }
+          ]
+        },
+        {
+          "name": "Quiz",
+          "weightage": "15.0",
+          "total_obtained": "0.00",
+          "assessments": [
+            {
+              "name": "Quiz 1",
+              "max_mark": "10.0",
+              "obtained_mark": "0.00",
+              "class_average": "6.73",
+              "percentage": "0.00"
+            },
+            {
+              "name": "Quiz 2",
+              "max_mark": "10.0",
+              "obtained_mark": "0.00",
+              "class_average": "4.23",
+              "percentage": "0.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "course_identifier": "dnqvo1zrDj3zlPAGOWDx",
+      "course_name": "Database Systems",
+      "teacher": "Muhammad Majid Zaman",
+      "course_code": "AI2313",
+      "credit_hours": "3.0",
+      "attendance": "83.0",
+      "grade_categories": [
+        {
+          "name": "Quiz",
+          "weightage": "15.0",
+          "total_obtained": "82.50",
+          "assessments": [
+            {
+              "name": "Quiz 2",
+              "max_mark": "10.0",
+              "obtained_mark": "8.00",
+              "class_average": "8.86",
+              "percentage": "80.00"
+            },
+            {
+              "name": "Quiz 1",
+              "max_mark": "10.0",
+              "obtained_mark": "8.50",
+              "class_average": "9.45",
+              "percentage": "85.00"
+            }
+          ]
+        },
+        {
+          "name": "Mid",
+          "weightage": "20.0",
+          "total_obtained": "65.00",
+          "assessments": [
+            {
+              "name": "Mid Term 1",
+              "max_mark": "10.0",
+              "obtained_mark": "6.00",
+              "class_average": "5.39",
+              "percentage": "60.00"
+            },
+            {
+              "name": "Mid Term 2",
+              "max_mark": "10.0",
+              "obtained_mark": "7.00",
+              "class_average": "7.09",
+              "percentage": "70.00"
+            }
+          ]
+        },
+        {
+          "name": "Assignments",
+          "weightage": "15.0",
+          "total_obtained": "87.50",
+          "assessments": [
+            {
+              "name": "Assignments 2",
+              "max_mark": "10.0",
+              "obtained_mark": "9.00",
+              "class_average": "9.08",
+              "percentage": "90.00"
+            },
+            {
+              "name": "Assignments 1",
+              "max_mark": "10.0",
+              "obtained_mark": "8.50",
+              "class_average": "9.17",
+              "percentage": "85.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "course_identifier": "8yBzO02JmVDBOPpojwM9",
+      "course_name": "Artificial Intelligence Lab",
+      "teacher": "Ali Azmat",
+      "course_code": "AI2811",
+      "credit_hours": "1.0",
+      "attendance": "85.0",
+      "grade_categories": [
+        {
+          "name": "Quiz",
+          "weightage": "20.0",
+          "total_obtained": "74.00",
+          "assessments": [
+            {
+              "name": "Quiz 1",
+              "max_mark": "10.0",
+              "obtained_mark": "8.00",
+              "class_average": "7.72",
+              "percentage": "80.00"
+            },
+            {
+              "name": "Quiz 2",
+              "max_mark": "10.0",
+              "obtained_mark": "8.00",
+              "class_average": "7.89",
+              "percentage": "80.00"
+            },
+            {
+              "name": "Quiz 4",
+              "max_mark": "10.0",
+              "obtained_mark": "8.00",
+              "class_average": "8.17",
+              "percentage": "80.00"
+            },
+            {
+              "name": "Quiz 5",
+              "max_mark": "10.0",
+              "obtained_mark": "8.00",
+              "class_average": "7.78",
+              "percentage": "80.00"
+            },
+            {
+              "name": "Quiz 3",
+              "max_mark": "10.0",
+              "obtained_mark": "5.00",
+              "class_average": "5.44",
+              "percentage": "50.00"
+            }
+          ]
+        },
+        {
+          "name": "Mid",
+          "weightage": "20.0",
+          "total_obtained": "72.50",
+          "assessments": [
+            {
+              "name": "Mid Term 2",
+              "max_mark": "10.0",
+              "obtained_mark": "7.00",
+              "class_average": "6.53",
+              "percentage": "70.00"
+            },
+            {
+              "name": "Mid Term 1",
+              "max_mark": "10.0",
+              "obtained_mark": "7.50",
+              "class_average": "7.22",
+              "percentage": "75.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "course_identifier": "OLoywq3PdV6ANrajkQVz",
+      "course_name": "Artificial Intelligence",
+      "teacher": "Dr. Muhammad Shahwar Asad",
+      "course_code": "AI2812",
+      "credit_hours": "2.0",
+      "attendance": "86.0",
+      "grade_categories": [
+        {
+          "name": "Assignments",
+          "weightage": "15.0",
+          "total_obtained": "100.00",
+          "assessments": [
+            {
+              "name": "Assignments 1",
+              "max_mark": "10.0",
+              "obtained_mark": "10.00",
+              "class_average": "8.71",
+              "percentage": "100.00"
+            },
+            {
+              "name": "Assignments 2",
+              "max_mark": "10.0",
+              "obtained_mark": "10.00",
+              "class_average": "8.04",
+              "percentage": "100.00"
+            }
+          ]
+        },
+        {
+          "name": "Quiz",
+          "weightage": "15.0",
+          "total_obtained": "49.17",
+          "assessments": [
+            {
+              "name": "Quiz 2",
+              "max_mark": "10.0",
+              "obtained_mark": "0.00",
+              "class_average": "6.78",
+              "percentage": "0.00"
+            },
+            {
+              "name": "Quiz 3",
+              "max_mark": "10.0",
+              "obtained_mark": "6.75",
+              "class_average": "6.73",
+              "percentage": "67.50"
+            },
+            {
+              "name": "Quiz 1",
+              "max_mark": "10.0",
+              "obtained_mark": "8.00",
+              "class_average": "6.92",
+              "percentage": "80.00"
+            }
+          ]
+        },
+        {
+          "name": "Mid",
+          "weightage": "20.0",
+          "total_obtained": "70.00",
+          "assessments": [
+            {
+              "name": "Mid Term 1",
+              "max_mark": "10.0",
+              "obtained_mark": "7.50",
+              "class_average": "5.64",
+              "percentage": "75.00"
+            },
+            {
+              "name": "Mid Term 2",
+              "max_mark": "10.0",
+              "obtained_mark": "6.50",
+              "class_average": "5.68",
+              "percentage": "65.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "course_identifier": "Bqnw6WagYe62lgO0dkEe",
+      "course_name": "Personal Grooming",
+      "teacher": "Dr. Maria Mashkoor",
+      "course_code": "AIG2212",
+      "credit_hours": "2.0",
+      "attendance": "71.0",
+      "grade_categories": [
+        {
+          "name": "Assignments",
+          "weightage": "5.0",
+          "total_obtained": "60.00",
+          "assessments": [
+            {
+              "name": "Assignments 1",
+              "max_mark": "10.0",
+              "obtained_mark": "7.00",
+              "class_average": "6.91",
+              "percentage": "70.00"
+            },
+            {
+              "name": "Assignments 2",
+              "max_mark": "10.0",
+              "obtained_mark": "5.00",
+              "class_average": "2.21",
+              "percentage": "50.00"
+            }
+          ]
+        },
+        {
+          "name": "Quiz",
+          "weightage": "5.0",
+          "total_obtained": "0.00",
+          "assessments": [
+            {
+              "name": "Quiz 1",
+              "max_mark": "10.0",
+              "obtained_mark": "0.00",
+              "class_average": "5.64",
+              "percentage": "0.00"
+            },
+            {
+              "name": "Quiz 2",
+              "max_mark": "10.0",
+              "obtained_mark": "0.00",
+              "class_average": "7.94",
+              "percentage": "0.00"
+            }
+          ]
+        },
+        {
+          "name": "Mid",
+          "weightage": "20.0",
+          "total_obtained": "65.00",
+          "assessments": [
+            {
+              "name": "Mid Term 1",
+              "max_mark": "10.0",
+              "obtained_mark": "4.00",
+              "class_average": "5.94",
+              "percentage": "40.00"
+            },
+            {
+              "name": "Mid Term 2",
+              "max_mark": "10.0",
+              "obtained_mark": "9.00",
+              "class_average": "4.44",
+              "percentage": "90.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "course_identifier": "dyYMqeEgGYyOOJRK8maj",
+      "course_name": "Entrepreneurship",
+      "teacher": "Dr. Ahsan Mahmood Ahmad",
+      "course_code": "AIG2712",
+      "credit_hours": "2.0",
+      "attendance": "91.0",
+      "grade_categories": [
+        {
+          "name": "Quiz",
+          "weightage": "10.0",
+          "total_obtained": "67.50",
+          "assessments": [
+            {
+              "name": "Quiz 1",
+              "max_mark": "10.0",
+              "obtained_mark": "6.50",
+              "class_average": "6.97",
+              "percentage": "65.00"
+            },
+            {
+              "name": "Quiz 2",
+              "max_mark": "10.0",
+              "obtained_mark": "7.00",
+              "class_average": "7.39",
+              "percentage": "70.00"
+            }
+          ]
+        },
+        {
+          "name": "Assignments",
+          "weightage": "10.0",
+          "total_obtained": "77.50",
+          "assessments": [
+            {
+              "name": "Assignments 1",
+              "max_mark": "10.0",
+              "obtained_mark": "7.00",
+              "class_average": "7.91",
+              "percentage": "70.00"
+            },
+            {
+              "name": "Assignments 2",
+              "max_mark": "10.0",
+              "obtained_mark": "8.50",
+              "class_average": "7.90",
+              "percentage": "85.00"
+            }
+          ]
+        },
+        {
+          "name": "Mid",
+          "weightage": "20.0",
+          "total_obtained": "90.00",
+          "assessments": [
+            {
+              "name": "Mid Term 1",
+              "max_mark": "10.0",
+              "obtained_mark": "8.50",
+              "class_average": "8.21",
+              "percentage": "85.00"
+            },
+            {
+              "name": "Mid Term 2",
+              "max_mark": "10.0",
+              "obtained_mark": "9.50",
+              "class_average": "8.70",
+              "percentage": "95.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "course_identifier": "0velMp8JMe6kKJkdQVDR",
+      "course_name": "Data Structures",
+      "teacher": "Khizra Bibi",
+      "course_code": "AI2143",
+      "credit_hours": "3.0",
+      "attendance": "72.0",
+      "grade_categories": [
+        {
+          "name": "Quiz",
+          "weightage": "15.0",
+          "total_obtained": "0.00",
+          "assessments": [
+            {
+              "name": "Quiz 1",
+              "max_mark": "10.0",
+              "obtained_mark": "0.00",
+              "class_average": "7.87",
+              "percentage": "0.00"
+            },
+            {
+              "name": "Quiz 2",
+              "max_mark": "10.0",
+              "obtained_mark": "0.00",
+              "class_average": "3.32",
+              "percentage": "0.00"
+            }
+          ]
+        },
+        {
+          "name": "Assignments",
+          "weightage": "15.0",
+          "total_obtained": "60.00",
+          "assessments": [
+            {
+              "name": "Assignments 2",
+              "max_mark": "10.0",
+              "obtained_mark": "5.00",
+              "class_average": "6.06",
+              "percentage": "50.00"
+            },
+            {
+              "name": "Assignments 1",
+              "max_mark": "10.0",
+              "obtained_mark": "7.00",
+              "class_average": "7.00",
+              "percentage": "70.00"
+            }
+          ]
+        },
+        {
+          "name": "Mid",
+          "weightage": "20.0",
+          "total_obtained": "42.50",
+          "assessments": [
+            {
+              "name": "Mid Term 1",
+              "max_mark": "10.0",
+              "obtained_mark": "3.50",
+              "class_average": "3.09",
+              "percentage": "35.00"
+            },
+            {
+              "name": "Mid Term 2",
+              "max_mark": "10.0",
+              "obtained_mark": "5.00",
+              "class_average": "3.82",
+              "percentage": "50.00"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "earned_credits": "35.0",
+    "total_credits": "18.0",
+    "inprogress_credits": "18.0"
+  }
+}

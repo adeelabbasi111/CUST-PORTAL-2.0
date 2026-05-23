@@ -1,0 +1,67 @@
+:root {
+    --bg: #05050a;
+    --primary: #6366f1;
+    --accent: #00f2fe;
+    --glass: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg); color: #e2e8f0;
+    min-height: 100vh; overflow-x: hidden;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* 🌌 Background */
+.bg-grid { position: fixed; inset: 0; z-index: -3; background-image: radial-gradient(circle at 1px 1px, #ffffff10 1px, transparent 0); background-size: 40px 40px; }
+.glow-1, .glow-2 { position: fixed; z-index: -2; border-radius: 50%; filter: blur(120px); opacity: 0.4; animation: float 10s infinite alternate; }
+.glow-1 { width: 500px; height: 500px; background: var(--primary); top: -10%; left: -10%; }
+.glow-2 { width: 400px; height: 400px; background: var(--accent); bottom: -10%; right: -10%; animation-delay: -5s; }
+@keyframes float { 0% { transform: translate(0,0); } 100% { transform: translate(30px, 50px); } }
+
+.container { width: 90%; max-width: 700px; text-align: center; z-index: 1; }
+.title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+.subtitle { color: #64748b; font-size: 1.1rem; margin-bottom: 2rem; }
+.credit { color: var(--accent); font-weight: 600; font-size: 1.5rem; opacity: 0.8; margin-bottom: 3rem; }
+
+.actions { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+.btn { padding: 1.2rem 2rem; border: 1px solid var(--border); border-radius: 16px; background: var(--glass); backdrop-filter: blur(12px); color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; width: 220px; }
+.btn:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.btn.primary { border-color: var(--primary); background: rgba(99, 102, 241, 0.1); }
+.btn.primary:hover { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+
+/* 📂 Files List - Single Column Wide Cards */
+.panel { position: fixed; inset: 0; background: rgba(5,5,10,0.9); backdrop-filter: blur(8px); z-index: 10; display: flex; align-items: center; justify-content: center; }
+.panel.hidden { opacity: 0; pointer-events: none; }
+.panel-header { position: absolute; top: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; align-items: center; }
+.close-btn { background: #ffffff10; border: 1px solid #ffffff20; color: #fff; width: 35px; height: 35px; border-radius: 8px; cursor: pointer; }
+
+.list-container { display: flex; flex-direction: column; gap: 1rem; padding: 2rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; margin-top: 3rem; }
+
+.file-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--glass); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1rem 1.5rem; transition: 0.2s;
+}
+.file-row:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.1); }
+
+.file-info { display: flex; align-items: center; gap: 1rem; cursor: pointer; flex-grow: 1; }
+.icon-lg { font-size: 2rem; line-height: 1; }
+.file-details { text-align: left; }
+.fc-role { font-weight: 700; font-size: 1.2rem; color: #fff; }
+.fc-date { color: #94a3b8; font-size: 0.85rem; }
+
+.del-btn {
+    background: transparent; border: 1px solid #ffffff20; color: #94a3b8;
+    width: 40px; height: 40px; border-radius: 8px; cursor: pointer; font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center; transition: 0.2s;
+}
+.del-btn:hover { background: #ef444420; border-color: #ef4444; color: #ef4444; }
+
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); padding: 1rem 2rem; background: #1e293b; border: 1px solid #334155; border-radius: 50px; color: #fff; z-index: 50; opacity: 0; transition: 0.3s; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.success { border-color: #10b981; color: #34d399; }
+.toast.error { border-color: #ef4444; color: #f87171; }
+.fade-in { animation: fadeIn 0.8s ease-out forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
