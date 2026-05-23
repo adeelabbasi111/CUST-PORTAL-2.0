@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUST Portal Reworked</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <!-- Main Content -->
+    <div class="container fade-in">
+        <div class="hero">
+            <h1 class="title" style="margin-bottom:30px">CUST PORTAL REWORKED</h1>
+            <h2>  </h2>
+        </div>
+        <div class="actions">
+            <button class="btn glass" onclick="toggleView('files')">📂 Review Files</button>
+            <button class="btn glass primary" onclick="handleScrape()">🤖 Scrape Data</button>
+        </div>
+    </div>
+
+    <!-- Files Panel -->
+    <div id="filesPanel" class="panel hidden">
+        <div class="panel-header">
+            <h2>📁 Student Records</h2>
+            <button onclick="toggleView('close')" class="close-btn">✕</button>
+        </div>
+        <div id="filesGrid" class="list-container"></div>
+    </div>
+
+    <!-- 🌟 Sexy Animated Footer (Proper Structure) -->
+    <!-- 🌟 Sexy Footer with Photo -->
+    <!-- Footer Include -->
+    {% include 'partials/footer.html' %}
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleView(view) {
+            const panel = document.getElementById('filesPanel');
+            if (view === 'files') { panel.classList.remove('hidden'); loadFiles(); }
+            else { panel.classList.add('hidden'); }
+        }
+
+        async function loadFiles() {
+            const grid = document.getElementById('filesGrid');
+            try {
+                const res = await fetch('/api/files');
+                const files = await res.json();
+                grid.innerHTML = '';
+                if (files.length === 0) {
+                    grid.innerHTML = '<p class="empty">📭 No files found.</p>';
+                    return;
+                }
+                files.forEach(f => {
+                    const row = document.createElement('div');
+                    row.className = 'file-row';
+                    const info = document.createElement('div');
+                    info.className = 'file-info';
+                    info.onclick = () => window.location.href = `/dashboard?file=${f.filename}`;
+                    info.innerHTML = `<span class="icon-lg">🎓</span><div class="file-details"><div class="fc-role">${f.role}</div><div class="fc-date">📅 ${f.date}</div></div>`;
+                    const delBtn = document.createElement('button');
+                    delBtn.className = 'del-btn';
+                    delBtn.innerHTML = '🗑️';
+                    delBtn.title = 'Delete File';
+                    delBtn.onclick = (e) => { e.stopPropagation(); confirmDelete(f.filename, row); };
+                    row.appendChild(info);
+                    row.appendChild(delBtn);
+                    grid.appendChild(row);
+                });
+            } catch { grid.innerHTML = '<p class="error">⚠️ Load failed.</p>'; }
+        }
+
+        async function confirmDelete(filename, rowElement) {
+            if (!confirm('Are you sure you want to delete this file?')) return;
+            try {
+                const res = await fetch(`/api/delete/${filename}`, { method: 'POST' });
+                const data = await res.json();
+                if (data.status === 'success') { showToast(data.message); rowElement.remove(); }
+            } catch { showToast('❌ Delete failed', 'error'); }
+        }
+
+        async function handleScrape() {
+            const btn = document.querySelector('.btn.primary');
+            btn.innerHTML = '⏳ Running...'; btn.disabled = true;
+            try {
+                const res = await fetch('/scrape', { method: 'POST' });
+                const data = await res.json();
+                showToast(data.message);
+            } catch { showToast('❌ Error', 'error'); }
+            finally { btn.innerHTML = '🤖 Scrape Data'; btn.disabled = false; }
+        }
+
+        function showToast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = `toast show ${type}`;
+            setTimeout(() => t.className = 'toast hidden', 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/visualiser.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <style>
+/* Footer Animations - Force Load */
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes borderFlow { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
+@keyframes textShimmer { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
+@keyframes rotateGlow { 100% { transform: rotate(360deg); } }
+</style>
+</head>
+<body class="bg-slate-900 text-slate-200 min-h-screen p-4 md:p-8">
+    <div class="max-w-5xl mx-auto space-y-10">
+
+        <!-- 🌟 AIRY HERO SECTION (Separate Boxes, Emojis, No Bell Curve Badge) -->
+        <header class="fade-in">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-white tracking-tight">🎓 Student Performance Dashboard</h1>
+                <p class="text-slate-400 mt-2">Academic Analytics & Insights</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-slate-800/40 border border-slate-700/50 rounded-xl p-5 hover-lift">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">👤</span>
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase tracking-wider">Student</p>
+                            <h2 class="text-lg font-semibold text-white">{{ student.name }}</h2>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-300 bg-slate-700/30 px-2 py-1 rounded inline-block">🆔 {{ student.reg_no }}</p>
+                </div>
+                <div class="bg-slate-800/40 border border-slate-700/50 rounded-xl p-5 hover-lift">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">📊</span>
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase tracking-wider">CGPA</p>
+                            <h2 class="text-2xl font-bold text-indigo-400">{{ student.cgpa }}</h2>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500">Current Academic Standing</p>
+                </div>
+                <div class="bg-slate-800/40 border border-slate-700/50 rounded-xl p-5 hover-lift">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">📚</span>
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase tracking-wider">Credits Earned</p>
+                            <h2 class="text-2xl font-bold text-emerald-400">{{ summary.earned_credits }}</h2>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500">Successfully Completed</p>
+                </div>
+                <div class="bg-slate-800/40 border border-slate-700/50 rounded-xl p-5 hover-lift">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">🎯</span>
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase tracking-wider">Est. Semester GPA</p>
+                            <h2 class="text-2xl font-bold text-amber-400">{{ overall_gpa }}</h2>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500">Projected based on current performance</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 📚 COURSES CONTAINER -->
+        <section>
+            <div class="space-y-8">
+<!-- 🔽 CGPA GOAL PLANNER (Dark Theme Optimized) -->
+
+
+<div class="goal-planner-section">
+  <div class="goal-card">
+    <h3>🎯 CGPA Goal Planner</h3>
+    <div class="planner-inputs">
+      <div class="input-group">
+        <label>📈 Target CGPA</label>
+        <input type="number" id="goalCgpa" step="0.01" min="0" max="4.0" placeholder="e.g. 3.90">
+
+      </div>
+      <div class="input-group">
+        <label>📅 Current Semester</label>
+        <div class="custom-select-wrapper">
+          <select id="currentSemester">
+            <option value="2">Semester 2</option>
+            <option value="3" selected>Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+            <option value="7">Semester 7</option>
+            <option value="8">Semester 8</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="calc-result" id="calcResult">
+      <div class="result-header">
+        <span class="label">Required Semester GPA:</span>
+        <span class="value" id="reqGpaValue">--</span>
+      </div>
+      <div class="gpa-meter"><div class="gpa-fill" id="gpaFill"></div></div>
+      <p class="status-msg" id="statusMsg">Set your goal & semester to calculate</p>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const goalInput = document.getElementById('goalCgpa');
+  const semSelect = document.getElementById('currentSemester');
+  const reqValue = document.getElementById('reqGpaValue');
+  const gpaFill = document.getElementById('gpaFill');
+  const statusMsg = document.getElementById('statusMsg');
+
+  // Safely parse Jinja variable
+  const rawCGPA = "{{ student.cgpa }}".trim();
+  const currentCGPA = parseFloat(rawCGPA) || 0;
+
+  function calculate() {
+    const goal = parseFloat(goalInput.value);
+    const sem = parseInt(semSelect.value);
+
+    if (isNaN(goal) || goal <= 0 || !sem) {
+      reqValue.textContent = "--";
+      gpaFill.style.width = "0%";
+      statusMsg.textContent = "Set your goal & semester to calculate";
+      statusMsg.className = "status-msg";
+      return;
+    }
+
+    const completedSem = sem - 1;
+    const requiredGPA = (goal * sem) - (currentCGPA * completedSem);
+    const clampedGPA = Math.max(0, Math.min(4.0, requiredGPA));
+    const percent = (clampedGPA / 4.0) * 100;
+
+    reqValue.textContent = requiredGPA.toFixed(2);
+    gpaFill.style.width = `${percent}%`;
+
+    if (requiredGPA > 4.0) {
+      const maxPossible = ((currentCGPA * completedSem) + 4.0) / sem;
+      statusMsg.innerHTML = `⚠️ <strong>Koi Karnay wali bat karo ji !</strong><br>Max possible CGPA: ${maxPossible.toFixed(2)} <br> <img src="{{ url_for('static', filename='images/nikal.gif') }}" width="220" height="391" style="display: block; margin-left: auto; margin-right: auto;">`;
+      statusMsg.className = "status-msg impossible";
+      gpaFill.style.background = "linear-gradient(90deg, #ef4444, #f87171)";
+    } else if (requiredGPA <= 3.0) {
+      statusMsg.textContent = "✅ Makhan Malai ! Consistent raho, ho jayega.";
+      statusMsg.className = "status-msg achievable";
+      gpaFill.style.background = "linear-gradient(90deg, #16a34a, #4ade80)";
+    } else if (requiredGPA <= 3.6) {
+      statusMsg.textContent = "💪 Khoon Paseena aik hoga, lekin bilkul possible hai.";
+      statusMsg.className = "status-msg challenging";
+      gpaFill.style.background = "linear-gradient(90deg, #d97706, #fbbf24)";
+    } else if(requiredGPA <= 3.8){
+      statusMsg.textContent = "🔥 Khuda Ka nam lo ji ! Bakion ka bhi soch lo kuch";
+      statusMsg.className = "status-msg challenging";
+      gpaFill.style.background = "linear-gradient(90deg, #dc2626, #fca5a5)";
+    }
+    else{
+      statusMsg.innerHTML = `<strong>Dil ke khush rakhne ko, Ghalib ! yeh khayaal acha hai…</strong><br>`;
+      statusMsg.className = "status-msg impossible";
+    }
+  }
+
+  goalInput.addEventListener('input', calculate);
+  semSelect.addEventListener('change', calculate);
+  calculate(); // Initial run
+});
+</script>
+<!-- 🔼 GOAL PLANNER SECTION END -->
+                {% for item in courses %}
+                {% set c = item.course %}
+                {% set s = item.stats %}
+
+                <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden hover-lift fade-in" style="animation-delay: {{ loop.index * 0.05 }}s;">
+
+                    <!-- Course Header (Large Left Emojis) -->
+                    <div class="p-6 border-b border-slate-700/30 bg-slate-800/20">
+                        <div class="flex flex-col md:flex-row md:items-start justify-between gap-5">
+                            <div class="flex items-start gap-4">
+                                <div class="text-5xl leading-none pt-1">📖</div>
+                                <div>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="px-2 py-0.5 rounded bg-indigo-900/50 text-indigo-300 text-xs font-medium border border-indigo-800/50">{{ c.course_code }}</span>
+                                        <span class="text-xs text-slate-500">🕒 {{ c.credit_hours }} Credits</span>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white">{{ c.course_name }}</h3>
+                                    <p class="text-sm text-slate-400 mt-1">👨‍🏫 {{ c.teacher }}</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end justify-center mt-2 md:mt-0">
+                                <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Estimated Grade</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-4xl font-bold {{ s.estimated_grade.color }}">{{ s.estimated_grade.grade }}</span>
+                                    <span class="inline-block px-3 py-1 rounded-lg text-xs font-medium {{ s.estimated_grade.bg }} {{ s.estimated_grade.color }}">{{ s.estimated_grade.label }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Top 4 Airy Boxes -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                            <div class="rounded-xl bg-blue-900/10 border border-blue-800/30 p-4 text-center hover-lift">
+                                <p class="text-xs text-slate-400 mb-2">👤 Your Marks</p>
+                                <p class="text-2xl font-bold text-blue-400">{{ s.total_obtained }} <span class="text-base text-slate-500">/ {{ s.total_conducted_max }}</span></p>
+                            </div>
+                            <div class="rounded-xl bg-slate-800/30 border border-slate-700 p-4 text-center hover-lift">
+                                <p class="text-xs text-slate-400 mb-2">👥 Class Avg</p>
+                                <p class="text-2xl font-bold text-slate-300">{{ s.class_total_obtained }} <span class="text-base text-slate-500">/ {{ s.total_conducted_max }}</span></p>
+                            </div>
+                            <div class="rounded-xl bg-emerald-900/10 border border-emerald-800/30 p-4 text-center hover-lift">
+                                <p class="text-xs text-slate-400 mb-2">🎯 Current Score</p>
+                                <p class="text-2xl font-bold text-emerald-400">{{ s.percentage }}%</p>
+                                <p class="text-xs text-slate-500 mt-1">Class: {{ s.class_percentage }}%</p>
+                            </div>
+                            <div class="rounded-xl {% if s.diff_val > 0 %}bg-purple-900/10 border-purple-800/30{% else %}bg-red-900/10 border-red-800/30{% endif %} border p-4 text-center hover-lift">
+                                <p class="text-xs text-slate-400 mb-2">📊 Standing</p>
+                                <p class="text-xl font-semibold {% if s.diff_val > 0 %}text-purple-400{% else %}text-red-400{% endif %}">
+                                    {% if s.diff_val > 0 %}↑ Above {{ s.diff }}{% elif s.diff_val < 0 %}↓ Below {{ s.diff }}{% else %}→ Equal{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                                           {% set att = c.attendance|default(0)|float %}
+<!-- 📅 Attendance Section -->
+<div style="margin: 12px 0; padding: 12px; background: transparent; border-radius: 8px; border: 1px solid rgba(128,128,128,0.15);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span style="font-weight: 600; color: inherit;">📅 Attendance</span>
+        <span style="font-weight: 700; color: {{ '#28a745' if att >= 75 else '#dc3545' }};">{{ c.attendance }}%</span>
+    </div>
+    <div style="background: rgba(128,128,128,0.15); border-radius: 10px; height: 10px; overflow: hidden;">
+        <div style="height: 100%; width: {{ att }}%; background: linear-gradient(90deg, {{ '#28a745' if att >= 75 else '#dc3545' }}, {{ '#20c997' if att >= 75 else '#ff6b6b' }}); border-radius: 10px; transition: width 0.6s ease;"></div>
+    </div>
+</div>
+                    <!-- 📂 Visually Appealing Category Breakdown -->
+                    <div class="p-6 bg-slate-900/40">
+                        <p class="text-sm font-medium text-slate-300 mb-4 flex items-center gap-2">📂 Category-wise Breakdown</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {% for cat in s.category_stats %}
+                            <div class="bg-slate-800/50 rounded-xl p-4 border border-slate-700 hover:border-indigo-500/50 transition duration-200">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="font-semibold text-slate-200">{{ cat.name }}</span>
+                                    <span class="text-xs px-2 py-1 rounded-full bg-slate-700 text-slate-400">{{ cat.weight }}% Weight</span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-blue-400 font-medium">You: {{ cat.student_marks|round(1) }}</span>
+                                    <span class="text-amber-400 font-medium">Class: {{ cat.class_marks|round(1) }}</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2.5 mb-2">
+                                    <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-2.5 rounded-full transition-all" style="width: {{ (cat.student_marks / cat.max_marks * 100)|round(0) if cat.max_marks > 0 else 0 }}%"></div>
+                                </div>
+                                <p class="text-xs text-slate-500 text-right">Total Conducted: {{ cat.max_marks|round(1) }} marks</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- 📊 Category-Wise Bar Chart -->
+                    <div class="p-6">
+                        <div class="bg-slate-800/30 rounded-xl p-4 border border-slate-700/50">
+                            <h4 class="text-sm font-medium text-slate-300 mb-2">📈 Category Performance (Weighted Contribution)</h4>
+                            <div class="h-52"><canvas id="{{ item.id }}-barChart"></canvas></div>
+                        </div>
+                    </div>
+
+                    <!-- 📝 RESTORED: Individual Assessment Table -->
+                    <div class="p-6 border-t border-slate-700/30">
+                        <h4 class="text-sm font-medium text-slate-300 mb-4">📝 Individual Assessment Details</h4>
+                        <div class="overflow-x-auto rounded-xl border border-slate-700/50">
+                            <table class="w-full text-sm">
+                                <thead class="bg-slate-800/60 text-slate-400">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left font-medium">Assessment</th>
+                                        <th class="px-4 py-3 text-center font-medium">Max</th>
+                                        <th class="px-4 py-3 text-right font-medium">You</th>
+                                        <th class="px-4 py-3 text-right font-medium">Class Avg</th>
+                                        <th class="px-4 py-3 text-right font-medium">%</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800/50 bg-slate-900/30">
+                                    {% for cat in c.grade_categories %}
+                                        {% for a_item in cat.assessments %}
+                                        <tr class="hover:bg-slate-800/30 transition-colors">
+                                            <td class="px-4 py-3 text-slate-200"><span class="text-xs text-slate-500">[{{ cat.name }}]</span> {{ a_item.name }}</td>
+                                            <td class="px-4 py-3 text-center text-slate-400">{{ a_item.max_mark }}</td>
+                                            <td class="px-4 py-3 text-right font-medium {% if a_item.obtained_mark|float >= 8 %}text-emerald-400{% elif a_item.obtained_mark|float >= 5 %}text-amber-400{% else %}text-red-400{% endif %}">{{ a_item.obtained_mark }}</td>
+                                            <td class="px-4 py-3 text-right text-slate-400">{{ a_item.class_average }}</td>
+                                            <td class="px-4 py-3 text-right">
+                                                <span class="px-2 py-0.5 rounded text-xs font-medium {% if a_item.percentage|float >= 80 %}bg-emerald-900/40 text-emerald-300{% elif a_item.percentage|float >= 60 %}bg-amber-900/40 text-amber-300{% else %}bg-red-900/40 text-red-300{% endif %}">{{ a_item.percentage }}%</span>
+                                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+                    <!-- 🧠 AI Feedback Section -->
+<div class="mt-6 bg-gray-900/60 backdrop-blur-md rounded-xl border border-gray-700/50 p-5 shadow-2xl">
+    <h3 class="text-lg font-bold text-gray-100 mb-4 flex items-center gap-2">
+        <span class="text-2xl">🤖</span> AI Coach Insights
+    </h3>
+
+    <!-- Grid Layout for Feedbacks -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {% for msg in s.feedback %}
+        <div class="group relative p-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border border-gray-700 hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
+            <!-- Hover Glow Effect -->
+            <div class="absolute inset-0 bg-purple-500/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+
+            <!-- Feedback Text -->
+            <p class="relative text-sm text-gray-200 leading-relaxed flex items-start gap-2">
+                <span class="text-lg shrink-0 mt-0.5">💡</span>
+                <span>{{ msg }}</span>
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+{% endfor %}
+</div>
+</section>
+
+<!-- 🦶 FOOTER -->
+
+</div>
+
+
+<script>
+    const chartData = {{ courses|tojson }};
+    const commonOpts = {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'top', labels: { color: '#cbd5e1', boxWidth: 10 } }, tooltip: { backgroundColor: '#1e293b', titleColor: '#e2e8f0', bodyColor: '#cbd5e1', borderColor: '#334155', borderWidth: 1, padding: 10, cornerRadius: 6 } },
+        scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }, x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 11 }, maxRotation: 45 } } }
+    };
+    chartData.forEach(c => {
+        new Chart(document.getElementById(`${c.id}-barChart`).getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: c.chart_data.labels,
+                datasets: [
+                    { label: 'Your Score', data: c.chart_data.student_data, backgroundColor: 'rgba(99,102,241,0.8)', borderRadius: 6 },
+                    { label: 'Class Avg', data: c.chart_data.class_data, backgroundColor: 'rgba(100,116,139,0.6)', borderRadius: 6 }
+                ]
+            },
+            options: commonOpts
+        });
+    });
+</script>
+{% include 'partials/footer.html' %}
+</body>
+</html>
