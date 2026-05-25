@@ -77,6 +77,7 @@ def save_data(data, filename=None):
 def get_saved_files():
     if not os.path.exists(DATA_FOLDER): return []
     files = []
+    print(os.listdir(DATA_FOLDER))
     for f in os.listdir(DATA_FOLDER):
         if f.endswith(".json"):
             role, date = parse_filename(f)
@@ -86,6 +87,7 @@ def get_saved_files():
 def delete_saved_file(filename):
     if '..' in filename: return False
     filepath = os.path.join(DATA_FOLDER, filename)
+    print(filepath)
     if os.path.exists(filepath):
         os.remove(filepath)
         return True

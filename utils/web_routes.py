@@ -1,8 +1,9 @@
-import os, json, time, traceback
+import os, json, time, traceback , threading
 from flask import render_template, request, jsonify,redirect,url_for
 from utils.grade_calculator import calculate_course_stats
 from utils.file_manager import get_saved_files, delete_saved_file, save_data
 from models.config import GRADE_POINTS, DATA_FOLDER
+
 from Codes.course_scraper import GradeBookScraper  # Adjust path if needed
 
 def register_routes(app, driver):
@@ -10,6 +11,28 @@ def register_routes(app, driver):
     def landing():
         return render_template("index.html")
 
+    @app.route('/quit', methods=['POST'])
+    def quit_bot():
+
+        def shutdown():
+
+            time.sleep(1)
+
+            try:
+                if hasattr(app, 'driver') and app.driver:
+                    print("Quitting browser...")
+                    app.driver.quit()
+
+            except Exception as e:
+                print(e)
+
+            os._exit(0)
+
+        threading.Thread(target=shutdown, daemon=True).start()
+
+        return jsonify({
+            "status": "shutting_down"
+        }), 200
     @app.route("/dashboard")
     def dashboard():
         filename = request.args.get("file")
@@ -79,6 +102,7 @@ def register_routes(app, driver):
             saved_filename = save_data(student_data)
             print("opening",saved_filename)
             driver.get(f"http://127.0.0.1:5000/dashboard?file={saved_filename}")
+            return
         except Exception as e:
             traceback.print_exc()
             return jsonify({"error": f"❌ Scraping failed: {str(e)}"}), 500

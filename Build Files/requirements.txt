@@ -1,6 +1,0 @@
-selenium>=4.10.0
-flask>=3.0.0
-Werkzeug>=3.0.0
-requests>=2.31.0
-PyInstaller>=6.15.0
-

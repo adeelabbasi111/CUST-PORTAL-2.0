@@ -18,6 +18,63 @@
 </style>
 </head>
 <body class="bg-slate-900 text-slate-200 min-h-screen p-4 md:p-8">
+<!-- 🟢 TOP NAVIGATION BAR -->
+<div class="app-topbar">
+  <a href="/" class="top-btn btn-home">🏠 Home</a>
+  <button onclick="handleQuit()" class="top-btn btn-quit">⏹️ Quit App</button>
+</div>
+
+<style>
+  .app-topbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 12px 20px;
+    background: rgba(12, 15, 46, 0.6);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #1a1e45;
+    margin-bottom: 16px;
+    border-radius: 0 0 12px 12px;
+  }
+  .top-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-home { background: #6c5ce7; color: #fff; }
+  .btn-home:hover { background: #7d70ef; transform: translateY(-1px); }
+  .btn-quit { background: #ef476f; color: #fff; }
+  .btn-quit:hover { background: #f56b8a; transform: translateY(-1px); }
+</style>
+
+<script>
+  function handleQuit() {
+    if (confirm("⚠️ Are you sure you want to quit the bot?\nThis will close the dashboard & browser.")) {
+      fetch('/quit', { method: 'POST' })
+        .then(() => {
+          document.body.innerHTML = `
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;color:#fff;font-family:'Segoe UI',sans-serif;background:#07091a;">
+              <h1 style="font-size:2rem;margin:0;">🛑 Application Closed</h1>
+              <p style="color:#8892b0;margin-top:8px;">You can safely close this tab now.</p>
+            </div>`;
+        })
+        .catch(err => {
+          console.error('Quit request failed:', err);
+          alert('Failed to quit. Please close manually.');
+        });
+    }
+  }
+</script>
+<!-- 🔚 END TOP BAR -->
     <div class="max-w-5xl mx-auto space-y-10">
 
         <!-- 🌟 AIRY HERO SECTION (Separate Boxes, Emojis, No Bell Curve Badge) -->
@@ -357,3 +414,4 @@ document.addEventListener('DOMContentLoaded', () => {
 {% include 'partials/footer.html' %}
 </body>
 </html>
+

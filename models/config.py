@@ -1,4 +1,10 @@
 import os , sys
+import logging
+
+def get_docs_data_dir(app_name="Portal Scraper", subfolder="StudentData"):
+    docs = os.path.join(os.path.expanduser("~"), "Documents", app_name, subfolder)
+    os.makedirs(docs, exist_ok=True)
+    return docs
 
 def get_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -17,7 +23,7 @@ GRADE_POINTS = {
     "A": 4.00, "A-": 3.67, "B+": 3.33, "B": 3.00, "B-": 2.67,
     "C+": 2.33, "C": 2.00, "C-": 1.67, "D+": 1.33, "D": 1.00, "F": 0.00
 }
-DATA_FOLDER = "StudentData"
+DATA_FOLDER = get_docs_data_dir()
 
 # Paths
 USERNAME = os.getlogin()
