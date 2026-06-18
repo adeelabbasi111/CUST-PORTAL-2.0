@@ -112,7 +112,7 @@ function renderCourses(courses) {
                     <div class="course-title">${course.course_name}</div>
                     <div class="course-code">${course.course_code}</div>
                 </div>
-                <div class="grade-badge grade-${grade.letter}">${grade.letter}</div>
+                
             </div>
             
             <div class="course-meta">
